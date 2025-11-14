@@ -47,8 +47,8 @@ namespace RunCat365
         {
             const int barLength = 10;
             int filledLength = (int)(barLength * usagePercent / 100.0f);
-            string filled = new string('▣', filledLength);
-            string empty = new string('□', barLength - filledLength);
+            string filled = new('▣', filledLength);
+            string empty = new('□', barLength - filledLength);
             return filled + empty;
         }
     }

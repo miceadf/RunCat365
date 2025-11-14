@@ -16,6 +16,8 @@ using Microsoft.Win32;
 using RunCat365.Properties;
 using System.Diagnostics;
 using FormsTimer = System.Windows.Forms.Timer;
+using System; 
+using System.Linq;
 
 namespace RunCat365
 {
@@ -24,6 +26,26 @@ namespace RunCat365
         [STAThread]
         static void Main()
         {
+            var args = Environment.GetCommandLineArgs();
+            if (args.Contains("-fulltrust"))
+            {
+                // 이 인스턴스는 Task Manager 실행을 위해 Full Trust 권한으로 호출됨
+                try
+                {
+                    // Full Trust 권한이 있으므로 Process.Start가 작동합니다.
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = "taskmgr",
+                        UseShellExecute = true
+                    });
+                }
+                catch (Exception)
+                {
+                    // 실행 실패 시 (일반적으로 발생하지 않음)
+                }
+                return; // Task Manager를 실행하고 메인 앱 로직을 실행하지 않고 즉시 종료
+            }
+
             // Terminate RunCat365 if there's any existing instance.
             using var procMutex = new Mutex(true, "_RUNCAT_MUTEX", out var result);
             if (!result) return;

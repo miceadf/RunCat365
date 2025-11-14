@@ -49,7 +49,8 @@
             DisplayName="RunCat 365"/>
 	    </uap5:Extension>
 		<desktop:Extension
-		  Category="windows.fullTrustProcess" />
+		  Category="windows.fullTrustProcess" 
+      Executable="$targetnametoken$.exe" />
 	  </Extensions>
     </Application>
   </Applications>
